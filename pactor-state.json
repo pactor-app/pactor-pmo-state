@@ -1,0 +1,1449 @@
+{
+  "schema_version": "1.0",
+  "meta": {
+    "name": "Pactor — Snapshot 2026-04-29",
+    "created_at": "2026-04-29T18:15:00-03:00",
+    "updated_at": "2026-04-30T15:19:33.777Z",
+    "consolidated_from": {
+      "base_snapshot": "backup_pactor_pmo_2026-04-29_13h34.json",
+      "patches_applied": 1,
+      "total_ops_applied": 3,
+      "consolidated_at": "2026-04-30T15:19:33.777Z"
+    }
+  },
+  "cockpit": {
+    "last_updated": "2026-04-29T18:15:00-03:00",
+    "week_focus": "Consolidar Doc 01 (v1.2+v1.3+v1.4) e iniciar TASK-024 (tela de revisão com ancoragem campo→PDF).",
+    "top_actions": [
+      {
+        "id": "A1",
+        "title": "Consolidar Documento 01 em arquivo único",
+        "priority": "high",
+        "due": "2026-05-02",
+        "linked_task": "TASK-NEW-01"
+      },
+      {
+        "id": "A2",
+        "title": "Confirmar status FASE-0 (jurídico-societário) — TASK-001 a TASK-009",
+        "priority": "high",
+        "due": "2026-05-03",
+        "linked_task": "TASK-001"
+      },
+      {
+        "id": "A3",
+        "title": "Iniciar TASK-024 (tela de revisão + ancoragem campo→PDF)",
+        "priority": "medium",
+        "due": "2026-05-10",
+        "linked_task": "TASK-024"
+      },
+      {
+        "id": "A4",
+        "title": "Instalar skill pactor-patch (após Turno 3)",
+        "priority": "medium",
+        "due": "2026-04-30",
+        "linked_task": "TASK-PMO-02"
+      }
+    ],
+    "active_blockers": [
+      {
+        "id": "B1",
+        "title": "Doc 01 disperso em 3 arquivos (v1.2+v1.3+v1.4)",
+        "severity": "high",
+        "area": "Documentação"
+      },
+      {
+        "id": "B2",
+        "title": "FASE-0 jurídica com status incerto — bloqueante para faturar",
+        "severity": "high",
+        "area": "Jurídico"
+      },
+      {
+        "id": "B3",
+        "title": "Schema do patch ainda em fechamento (Turno 3)",
+        "severity": "low",
+        "area": "PMO"
+      }
+    ]
+  },
+  "phases": [
+    {
+      "id": "FASE-0",
+      "name": "Jurídico-Societário",
+      "status": "em-andamento",
+      "start_date": "2026-03-01",
+      "end_date": "2026-05-15",
+      "description": "Anuência DELTAPOINT, MEI/LTDA, conta PJ, INPI, contratos com fornecedores."
+    },
+    {
+      "id": "FASE-1",
+      "name": "Fundação Técnica",
+      "status": "em-andamento",
+      "start_date": "2026-04-01",
+      "end_date": "2026-06-15",
+      "description": "Infra (Supabase/Vercel/GitHub), schema, RLS, upload→extração→revisão→banco."
+    },
+    {
+      "id": "FASE-2",
+      "name": "Alertas + Seguro Garantia",
+      "status": "pendente",
+      "start_date": "2026-06-16",
+      "end_date": "2026-08-31",
+      "description": "Engine de alertas, módulo seguro-garantia (42 campos), dashboards."
+    },
+    {
+      "id": "FASE-3",
+      "name": "Polish + Lançamento",
+      "status": "pendente",
+      "start_date": "2026-09-01",
+      "end_date": "2026-10-31",
+      "description": "Logs auditoria, landing page, integração Stripe/Pagar.me, lançamento beta."
+    }
+  ],
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "titulo": "Revisar contrato de trabalho com a DELTAPOINT",
+      "descricao": "Cláusulas de exclusividade, não-concorrência, cessão de IP. Consultar advogado trabalhista se necessário.",
+      "fase": "FASE-0",
+      "prioridade": "high",
+      "status": "todo",
+      "checklist": [
+        {
+          "text": "Localizar contrato",
+          "done": false
+        },
+        {
+          "text": "Identificar cláusulas críticas",
+          "done": false
+        },
+        {
+          "text": "Consultar advogado se necessário",
+          "done": false
+        }
+      ],
+      "notas": "Risco jurídico central.",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-002",
+      "titulo": "Obter termo de anuência da DELTAPOINT",
+      "descricao": "Documento formal: Pactor é projeto pessoal, sem uso de recursos/horário da DELTAPOINT.",
+      "fase": "FASE-0",
+      "prioridade": "high",
+      "status": "todo",
+      "checklist": [
+        {
+          "text": "Redigir minuta",
+          "done": false
+        },
+        {
+          "text": "Apresentar à liderança",
+          "done": false
+        },
+        {
+          "text": "Obter assinatura",
+          "done": false
+        }
+      ],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-003",
+      "titulo": "Abrir MEI ou definir estrutura societária",
+      "descricao": "MEI até R$ 81k/ano resolve para começar. CNAE 6202-3/00.",
+      "fase": "FASE-0",
+      "prioridade": "high",
+      "status": "done",
+      "notas": "Já tenho empresa aberta, vou usá-la, é a RIR Serviços e Consultoria LTDA",
+      "updated_at": "2026-04-29",
+      "checklist": [
+        {
+          "text": "Decidir MEI vs LTDA",
+          "done": false
+        },
+        {
+          "text": "Escolher CNAE",
+          "done": false
+        },
+        {
+          "text": "Abrir via Portal do Empreendedor",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": "TASK-004",
+      "titulo": "Abrir conta bancária PJ separada",
+      "descricao": "Inter, Nubank PJ ou PJBank.",
+      "fase": "FASE-0",
+      "prioridade": "medium",
+      "status": "todo",
+      "checklist": [
+        {
+          "text": "Escolher banco",
+          "done": false
+        },
+        {
+          "text": "Apresentar CNPJ",
+          "done": false
+        },
+        {
+          "text": "Habilitar Pix",
+          "done": false
+        }
+      ],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-005",
+      "titulo": "Registrar marca \"Pactor\" no INPI",
+      "descricao": "Classes 9 (software), 42 (TI) e 45 (serviços jurídicos).",
+      "fase": "FASE-0",
+      "prioridade": "medium",
+      "status": "todo",
+      "checklist": [
+        {
+          "text": "Pesquisa de anterioridade",
+          "done": false
+        },
+        {
+          "text": "Pedido nas 3 classes",
+          "done": false
+        }
+      ],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-006",
+      "titulo": "Política de privacidade e Termos de Uso",
+      "descricao": "Em conformidade com LGPD. Modelos via Iubenda ou redação própria.",
+      "fase": "FASE-0",
+      "prioridade": "medium",
+      "status": "todo",
+      "checklist": [
+        {
+          "text": "Redigir",
+          "done": false
+        },
+        {
+          "text": "Publicar em pactor.app",
+          "done": false
+        }
+      ],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-007",
+      "titulo": "Contratos com fornecedores (Anthropic, Supabase, Resend)",
+      "descricao": "Revisar TOS de cada um e adequar ao DPA da empresa.",
+      "fase": "FASE-0",
+      "prioridade": "low",
+      "status": "backlog",
+      "checklist": [
+        {
+          "text": "Anthropic TOS",
+          "done": false
+        },
+        {
+          "text": "Supabase DPA",
+          "done": false
+        },
+        {
+          "text": "Resend TOS",
+          "done": false
+        }
+      ],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-008",
+      "titulo": "Registro de software no INPI",
+      "descricao": "Após primeira versão estável do app.",
+      "fase": "FASE-0",
+      "prioridade": "low",
+      "status": "backlog",
+      "checklist": [],
+      "notas": "Adiar até MVP estabilizar",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-009",
+      "titulo": "Seguro de responsabilidade civil profissional",
+      "descricao": "Cobertura para erros de processamento que causem prejuízo a clientes.",
+      "fase": "FASE-0",
+      "prioridade": "low",
+      "status": "backlog",
+      "checklist": [],
+      "notas": "Adiar até primeiros clientes pagantes",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-010",
+      "titulo": "Instalar Claude Code (Max plan)",
+      "descricao": "Instalador + login com conta Max.",
+      "fase": "FASE-1",
+      "prioridade": "high",
+      "status": "done",
+      "checklist": [
+        {
+          "text": "Download",
+          "done": true
+        },
+        {
+          "text": "Login",
+          "done": true
+        }
+      ],
+      "notas": "Concluído",
+      "updated_at": "2026-04-21"
+    },
+    {
+      "id": "TASK-011",
+      "titulo": "Instalar VS Code + extensão Claude Code",
+      "descricao": "Editor + integração com Claude.",
+      "fase": "FASE-1",
+      "prioridade": "high",
+      "status": "done",
+      "checklist": [
+        {
+          "text": "VS Code",
+          "done": true
+        },
+        {
+          "text": "Extensão",
+          "done": true
+        }
+      ],
+      "notas": "Concluído",
+      "updated_at": "2026-04-21"
+    },
+    {
+      "id": "TASK-012",
+      "titulo": "Criar repositório GitHub pactor-app",
+      "descricao": "Org pactor-app, repo principal pactor-app + repo separado pactor-site.",
+      "fase": "FASE-1",
+      "prioridade": "high",
+      "status": "done",
+      "checklist": [
+        {
+          "text": "Repo pactor-app",
+          "done": true
+        },
+        {
+          "text": "Repo pactor-site",
+          "done": true
+        }
+      ],
+      "notas": "Concluído",
+      "updated_at": "2026-04-21"
+    },
+    {
+      "id": "TASK-013",
+      "titulo": "Criar projeto Next.js via Claude Code",
+      "descricao": "Next.js 16 + TS + Tailwind 4 + shadcn/ui (base-nova + neutral).",
+      "fase": "FASE-1",
+      "prioridade": "high",
+      "status": "done",
+      "checklist": [
+        {
+          "text": "Scaffold",
+          "done": true
+        },
+        {
+          "text": "Commit inicial",
+          "done": true
+        },
+        {
+          "text": "Tag v0.1.0",
+          "done": true
+        }
+      ],
+      "notas": "PR #1 mergeado com merge commit",
+      "updated_at": "2026-04-21"
+    },
+    {
+      "id": "TASK-014",
+      "titulo": "Conectar GitHub ao Vercel e fazer deploy",
+      "descricao": "Deploy automático em pactor.app.",
+      "fase": "FASE-1",
+      "prioridade": "high",
+      "status": "done",
+      "checklist": [
+        {
+          "text": "Import repo",
+          "done": true
+        },
+        {
+          "text": "Deploy ok",
+          "done": true
+        }
+      ],
+      "notas": "Concluído",
+      "updated_at": "2026-04-21"
+    },
+    {
+      "id": "TASK-015",
+      "titulo": "Apontar domínio pactor.app para a Vercel",
+      "descricao": "DNS via Porkbun. Site institucional live.",
+      "fase": "FASE-1",
+      "prioridade": "medium",
+      "status": "done",
+      "checklist": [
+        {
+          "text": "DNS configurado",
+          "done": true
+        },
+        {
+          "text": "SSL ativo",
+          "done": true
+        }
+      ],
+      "notas": "Concluído",
+      "updated_at": "2026-04-21"
+    },
+    {
+      "id": "TASK-016",
+      "titulo": "Criar projeto no Supabase",
+      "descricao": "Projeto qraxtmhqhlokfgstixoy, região sa-east-1.",
+      "fase": "FASE-1",
+      "prioridade": "high",
+      "status": "done",
+      "checklist": [
+        {
+          "text": "Projeto criado",
+          "done": true
+        },
+        {
+          "text": "Credenciais salvas",
+          "done": true
+        }
+      ],
+      "notas": "Concluído",
+      "updated_at": "2026-04-21"
+    },
+    {
+      "id": "TASK-017",
+      "titulo": "Modelar schema inicial do banco de dados",
+      "descricao": "organizations, users, organization_users, contracts, insurance_policies, adjustments, alerts, audit_logs.",
+      "fase": "FASE-1",
+      "prioridade": "high",
+      "status": "todo",
+      "checklist": [
+        {
+          "text": "Diagrama ER",
+          "done": false
+        },
+        {
+          "text": "SQL por tabela",
+          "done": false
+        },
+        {
+          "text": "Foreign keys",
+          "done": false
+        }
+      ],
+      "notas": "Próxima task técnica após Doc 01 consolidado",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-018",
+      "titulo": "Implementar Row Level Security (RLS) multi-tenant",
+      "descricao": "Cada tabela com organization_id. Policy: usuário só vê linhas da sua org.",
+      "fase": "FASE-1",
+      "prioridade": "high",
+      "status": "todo",
+      "checklist": [
+        {
+          "text": "Policy por tabela",
+          "done": false
+        },
+        {
+          "text": "Testes de isolamento",
+          "done": false
+        }
+      ],
+      "notas": "ADR-003 — multi-tenant nativo",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-019",
+      "titulo": "Implementar auth (magic link)",
+      "descricao": "Supabase Auth + magic link. Convite por e-mail para roles owner/analista.",
+      "fase": "FASE-1",
+      "prioridade": "high",
+      "status": "todo",
+      "checklist": [
+        {
+          "text": "Setup Supabase Auth",
+          "done": false
+        },
+        {
+          "text": "Tela de login",
+          "done": false
+        },
+        {
+          "text": "Convite via Resend",
+          "done": false
+        }
+      ],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-020",
+      "titulo": "Configurar storage Supabase para PDFs",
+      "descricao": "Bucket privado por organização. Validação de filename pattern.",
+      "fase": "FASE-1",
+      "prioridade": "high",
+      "status": "todo",
+      "checklist": [
+        {
+          "text": "Bucket criado",
+          "done": false
+        },
+        {
+          "text": "Policy RLS",
+          "done": false
+        },
+        {
+          "text": "Validação de filename",
+          "done": false
+        }
+      ],
+      "notas": "ADR-007 — convenção de filename",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-021",
+      "titulo": "CRUD de organizações e contratos (UI)",
+      "descricao": "Tela inicial: lista de contratos, criar novo, editar, apagar.",
+      "fase": "FASE-1",
+      "prioridade": "high",
+      "status": "todo",
+      "checklist": [
+        {
+          "text": "Lista de contratos",
+          "done": false
+        },
+        {
+          "text": "Form de cadastro",
+          "done": false
+        }
+      ],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-022",
+      "titulo": "Upload de PDF de contrato",
+      "descricao": "Drag-drop + validação de tamanho/tipo + envio ao Supabase Storage.",
+      "fase": "FASE-1",
+      "prioridade": "high",
+      "status": "todo",
+      "checklist": [
+        {
+          "text": "Drop zone",
+          "done": false
+        },
+        {
+          "text": "Validação",
+          "done": false
+        },
+        {
+          "text": "Upload",
+          "done": false
+        }
+      ],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-023",
+      "titulo": "Extração via Claude API (PDF → JSON)",
+      "descricao": "Edge Function que recebe PDF, chama Claude com prompt de extração, retorna JSON estruturado com source_page por campo.",
+      "fase": "FASE-1",
+      "prioridade": "high",
+      "status": "todo",
+      "checklist": [
+        {
+          "text": "Edge Function",
+          "done": false
+        },
+        {
+          "text": "Prompt de extração",
+          "done": false
+        },
+        {
+          "text": "Schema JSON",
+          "done": false
+        }
+      ],
+      "notas": "ADR-004 — ancoragem campo→PDF",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-024",
+      "titulo": "Tela de revisão com ancoragem campo→PDF (HITL)",
+      "descricao": "Form em 7 blocos. Click no campo → PDF viewer rola para a página de origem. Reduz tempo de conferência de ~2min para ~10s por campo.",
+      "fase": "FASE-1",
+      "prioridade": "high",
+      "status": "todo",
+      "checklist": [
+        {
+          "text": "PDF viewer",
+          "done": false
+        },
+        {
+          "text": "Form lado a lado",
+          "done": false
+        },
+        {
+          "text": "Sincronização click→scroll",
+          "done": false
+        },
+        {
+          "text": "Indicador de confiança",
+          "done": false
+        }
+      ],
+      "notas": "Próxima fronteira técnica após schema/RLS",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-025",
+      "titulo": "Engine de alertas baseada em datas",
+      "descricao": "Cron diário: avalia datas críticas de cada contrato e cria alertas.",
+      "fase": "FASE-2",
+      "prioridade": "high",
+      "status": "backlog",
+      "checklist": [],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-026",
+      "titulo": "Notificações por e-mail (Resend)",
+      "descricao": "Digest semanal + alertas críticos imediatos.",
+      "fase": "FASE-2",
+      "prioridade": "medium",
+      "status": "backlog",
+      "checklist": [],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-027",
+      "titulo": "Dashboard operacional (por CNPJ)",
+      "descricao": "Para analistas: contratos ativos, tarefas, alertas, status de ciclos.",
+      "fase": "FASE-2",
+      "prioridade": "high",
+      "status": "backlog",
+      "checklist": [],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-028",
+      "titulo": "Dashboard executivo (por Cliente/grupo)",
+      "descricao": "Indicadores agregados, volume por status, riscos críticos.",
+      "fase": "FASE-2",
+      "prioridade": "medium",
+      "status": "backlog",
+      "checklist": [],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-029",
+      "titulo": "Módulo de reajuste (consulta IPCA/IGP-M/INPC)",
+      "descricao": "API BCB + IBGE. Cálculo: novo_valor = valor_atual × (1 + var%).",
+      "fase": "FASE-2",
+      "prioridade": "medium",
+      "status": "backlog",
+      "checklist": [],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-030",
+      "titulo": "Módulo seguro-garantia — cadastro de apólice (42 campos)",
+      "descricao": "Formulário em 7 blocos. ~22 campos auto-preenchidos pela extração.",
+      "fase": "FASE-2",
+      "prioridade": "high",
+      "status": "backlog",
+      "checklist": [],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-031",
+      "titulo": "Checklist de docs para renovação do seguro",
+      "descricao": "Lista canônica + status por doc + upload por item.",
+      "fase": "FASE-2",
+      "prioridade": "medium",
+      "status": "backlog",
+      "checklist": [],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-032",
+      "titulo": "Status tracking do seguro-garantia",
+      "descricao": "Workflow de 9 estados (cotação → pago → entregue).",
+      "fase": "FASE-2",
+      "prioridade": "medium",
+      "status": "backlog",
+      "checklist": [],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-033",
+      "titulo": "Configuração de antecedência de alertas por usuário",
+      "descricao": "30/60/90/120 dias por tipo. Salvo em user_preferences.",
+      "fase": "FASE-2",
+      "prioridade": "low",
+      "status": "backlog",
+      "checklist": [],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-034",
+      "titulo": "Módulo de renovação contratual",
+      "descricao": "Alerta + tela de decisão (renovar/licitar/encerrar).",
+      "fase": "FASE-3",
+      "prioridade": "medium",
+      "status": "backlog",
+      "checklist": [],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-035",
+      "titulo": "Logs de auditoria exportáveis",
+      "descricao": "Triggers SQL + UI de consulta + export CSV.",
+      "fase": "FASE-3",
+      "prioridade": "medium",
+      "status": "backlog",
+      "checklist": [],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-036",
+      "titulo": "Landing page pactor.app (repo separado)",
+      "descricao": "Já criada como repo pactor-site. Iterar copy + features + preços.",
+      "fase": "FASE-3",
+      "prioridade": "high",
+      "status": "doing",
+      "checklist": [
+        {
+          "text": "4 páginas estáticas",
+          "done": true
+        },
+        {
+          "text": "Formspree para leads",
+          "done": true
+        },
+        {
+          "text": "Iterar copy",
+          "done": false
+        }
+      ],
+      "notas": "Site live em pactor.app",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-037",
+      "titulo": "Integração Stripe/Pagar.me",
+      "descricao": "Checkout para os 3 planos. Webhook para ativar conta.",
+      "fase": "FASE-3",
+      "prioridade": "medium",
+      "status": "backlog",
+      "checklist": [],
+      "notas": "",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-PMO-01",
+      "titulo": "Consolidar Documento 01 (v1.2+v1.3+v1.4)",
+      "descricao": "Handoff já existe. Modelo: Sonnet 4.7. Saída: arquivo único 01-processos-genericos-gestao-contratos-v1_4_consolidado_*.md.",
+      "fase": "FASE-1",
+      "prioridade": "high",
+      "status": "todo",
+      "checklist": [
+        {
+          "text": "Ler handoff",
+          "done": false
+        },
+        {
+          "text": "Mapear seções por prevalência",
+          "done": false
+        },
+        {
+          "text": "Gerar arquivo consolidado",
+          "done": false
+        },
+        {
+          "text": "Abrir PR no repo",
+          "done": false
+        }
+      ],
+      "notas": "Bloqueador #1 atual",
+      "updated_at": "2026-04-29"
+    },
+    {
+      "id": "TASK-PMO-02",
+      "titulo": "Live Artifact PMO + skill pactor-patch + GitHub Action + Cowork watcher",
+      "descricao": "4 turnos hoje. Turno 1: HTMLpersist parte A. Turno 2: parte B. Turno 3: skill+Action. Turno 4: PowerShell watcher.",
+      "fase": "FASE-1",
+      "prioridade": "high",
+      "status": "doing",
+      "checklist": [
+        {
+          "text": "Turno 1 — HTMLpersist parte A",
+          "done": true
+        },
+        {
+          "text": "Turno 2 — HTMLpersist parte B",
+          "done": true
+        },
+        {
+          "text": "Turno 3 — skill + GitHub Action",
+          "done": true
+        },
+        {
+          "text": "Turno 4 — Cowork watcher",
+          "done": false
+        },
+        {
+          "text": "Instalar via Claude Code (release-manager)",
+          "done": false
+        }
+      ],
+      "notas": "Skill pactor-patch v1.0 instalada e validada (trigger 'gerar patch pactor' funcional em 2026-04-29). Action e build-script entregues, pendentes de instalacao no repo. Cowork watcher pendente (Turno 4 pausado a pedido do usuario para instalar e testar Turno 3 antes).",
+      "updated_at": "2026-04-29"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "ADR-001",
+      "title": "Posicionamento estratégico — vender para empresas contratadas, não para o governo",
+      "date": "2026-03-15",
+      "summary": "Mercado-alvo do MVP são empresas privadas contratadas pelo poder público, não os órgãos públicos.",
+      "rationale": "Empresas contratadas têm a mesma dor (gestão pós-assinatura) mas decidem em dias, não em meses. Permite validar produto rápido e gerar receita. Cases de sucesso depois facilitam venda a órgãos via dispensa.",
+      "consequences": "GTM via rede de contatos. DELTAPOINT como beta. Entrada em órgãos públicos só no Ano 2.",
+      "status": "aceita",
+      "linked_tasks": []
+    },
+    {
+      "id": "ADR-002",
+      "title": "Stack técnico — Next.js + Supabase + Vercel + Claude API + Resend",
+      "date": "2026-03-20",
+      "summary": "Stack moderno serverless que permite founder solo não-dev com ajuda do Claude Code.",
+      "rationale": "Vercel + Supabase têm free tier generoso. Next.js 16 + Tailwind 4 + shadcn/ui é stack mainstream. Claude API para extração. Resend para e-mails. Nenhuma decisão de infra de larga escala antes da validação.",
+      "consequences": "Lock-in moderado em Supabase. Migração para AWS/Postgres nativo é viável se necessário no futuro.",
+      "status": "aceita",
+      "linked_tasks": [
+        "TASK-013",
+        "TASK-016"
+      ]
+    },
+    {
+      "id": "ADR-003",
+      "title": "Multi-tenant nativo desde o dia 0",
+      "date": "2026-04-21",
+      "summary": "Toda tabela com organization_id e RLS ativo desde a primeira migration.",
+      "rationale": "Retrofit de RLS em SaaS jurídico é praticamente refazer o banco. Supabase entrega RLS de fábrica — custo extra é 1 semana, não 1 mês. Testes automáticos previnem regressões pelo resto da vida do produto.",
+      "consequences": "Escopo mínimo no MVP: RLS ativo, convite por e-mail, roles owner/analista. White-label e billing por org ficam para v2/v3.",
+      "status": "aceita",
+      "linked_tasks": [
+        "TASK-018"
+      ]
+    },
+    {
+      "id": "ADR-004",
+      "title": "Ancoragem campo→PDF na tela de revisão (HITL)",
+      "date": "2026-04-21",
+      "summary": "Ao clicar em campo do form, PDF viewer rola para a página de origem. Reduz tempo de conferência de 2min para 10s por campo.",
+      "rationale": "Tela de revisão é gargalo de UX no MVP. Sem ancoragem, analista perde 30+ minutos por contrato. Com ancoragem, fica em 5 minutos. Implica retorno por campo: {valor, source_page, source_snippet, confidence}.",
+      "consequences": "Prompt de extração precisa retornar source_page por campo. No MVP basta source_page; bounding box exato fica para v2.",
+      "status": "aceita",
+      "linked_tasks": [
+        "TASK-023",
+        "TASK-024"
+      ]
+    },
+    {
+      "id": "ADR-005",
+      "title": "6 processos no MVP (descartar Regularização Documental e Atestado de Capacidade Técnica)",
+      "date": "2026-04-21",
+      "summary": "MVP: Prorrogação, Reajuste/Repactuação, Seguro Garantia, Aditamento, Indicação de Preposto, Kick-off.",
+      "rationale": "Foco em processos com prazo legal ou cíclico claro. Regularização Documental e Atestado de Capacidade Técnica são mais ad-hoc e podem voltar em v2.",
+      "consequences": "Doc 01 detalha apenas os 6 processos. Engine do workbench filtra por aplicabilidade.",
+      "status": "aceita",
+      "linked_tasks": []
+    },
+    {
+      "id": "ADR-006",
+      "title": "Repositórios separados — pactor-app (produto) e pactor-site (landing)",
+      "date": "2026-04-21",
+      "summary": "Landing institucional em repo independente do app.",
+      "rationale": "SEO (landing sem peso do bundle), deploy independente, free tier Vercel mais folgado, separação de responsabilidades.",
+      "consequences": "TASK-036 (Landing) referencia repo pactor-site. Sem retrabalho.",
+      "status": "aceita",
+      "linked_tasks": [
+        "TASK-036"
+      ]
+    },
+    {
+      "id": "ADR-007",
+      "title": "Convenção de filename para uploads",
+      "date": "2026-04-21",
+      "summary": "[sigla-contratada]_[sigla-orgao]_[numero-contrato]_[tipo-doc]_[data-evento]_vN.pdf",
+      "rationale": "Padronização para listagem, busca e versionamento. Siglas fornecidas pelo cliente no upload.",
+      "consequences": "Validação no momento do save no Supabase Storage.",
+      "status": "aceita",
+      "linked_tasks": [
+        "TASK-020"
+      ]
+    },
+    {
+      "id": "ADR-008",
+      "title": "8 agentes Claude Code (3 Opus + 4 Sonnet + 1 Haiku)",
+      "date": "2026-04-21",
+      "summary": "tech-lead (Opus), db-architect (Opus), qa-engineer (Sonnet), refactor-sentinel (Sonnet), security-reviewer (Sonnet), release-manager (Haiku), docs-writer (Sonnet), + 1 a definir.",
+      "rationale": "Pipeline obrigatório: tech-lead → db-architect → Claude Code → qa-engineer → refactor-sentinel → security-reviewer → release-manager → docs-writer. Reduz risco de over-engineering e secrets vazados.",
+      "consequences": "Founder solo escala via agentes. release-manager remove fricção do Git no dia a dia.",
+      "status": "aceita",
+      "linked_tasks": []
+    },
+    {
+      "id": "ADR-009",
+      "title": "Critério OR para predicado da Trilha CCT (Repactuação · Mão de Obra)",
+      "date": "2026-04-27",
+      "summary": "Trilha CCT é aplicável se: repactuacao_prevista=Sim OU regime_execucao=dedicação exclusiva.",
+      "rationale": "False negatives (suprimir trilha quando deveria existir) são mais graves que false positives — podem levar a perda de direito por preclusão. Trade-off aceito.",
+      "consequences": "Workbench v1.4.2 implementa o predicado. Hotfix v1.4.2.2 ajusta regex de regime_execucao para evitar match parcial.",
+      "status": "aceita",
+      "linked_tasks": []
+    },
+    {
+      "id": "ADR-010",
+      "title": "HTMLpersist como tool de extração/revisão (paralelo ao app)",
+      "date": "2026-04-22",
+      "summary": "Workbench standalone em IndexedDB para extração e revisão durante desenvolvimento. Não é o produto final.",
+      "rationale": "Permite iteração rápida do schema de extração sem depender da infra do app. Quando o app estiver pronto, schema migra direto.",
+      "consequences": "Workbench em tools/workbench/ no repo. Versionado como app real (vMAJOR.MINOR.PATCH).",
+      "status": "aceita",
+      "linked_tasks": []
+    },
+    {
+      "id": "ADR-011",
+      "title": "Identidade Pactor v1.1 lockada",
+      "date": "2026-04-15",
+      "summary": "Fraunces wordmark, \"P.\" monogram, paleta Paper/Ink/Charcoal/Blue/Coral/Graphite. Coral só como ponto. Blue só em interativos.",
+      "rationale": "Identidade consistente em todo o ecossistema (site, app, workbench, materiais comerciais). Reduz custo cognitivo de design futuro.",
+      "consequences": "Brand book versionado. Todos os HTMLs do projeto seguem o padrão.",
+      "status": "aceita",
+      "linked_tasks": []
+    },
+    {
+      "id": "ADR-012",
+      "title": "Live Artifact PMO via Opção C (HTMLpersist + GitHub state + skill + Cowork)",
+      "date": "2026-04-29",
+      "summary": "Substituir o pactor-workbench atual por um PMO consolidado: HTMLpersist standalone + GitHub Action gera state.json + skill pactor-patch gera patches a partir de chats + Cowork watcher comita patches no repo.",
+      "rationale": "Vercel+Supabase para PMO de 1 pessoa é overkill (2-3 semanas de setup). Opção C entrega 80% dos benefícios com 20% do esforço, mantém offline-first, e migra para B no futuro sem retrabalho.",
+      "consequences": "4 turnos de geração hoje. Skill obrigatoriamente no Claude.ai. Action e watcher no Claude Code via release-manager.",
+      "status": "aceita",
+      "linked_tasks": [
+        "TASK-PMO-02"
+      ]
+    },
+    {
+      "id": "ADR-013",
+      "title": "Convencao de nomes para arquivos sincronizados (backup_/patch_/report_pactor_pmo_*)",
+      "date": "2026-04-29",
+      "summary": "Adotar prefixo de tipo separado do projeto: backup_pactor_pmo_<ts>.json, patch_pactor_pmo_<ts>.json, report_pactor_pmo_<ts>.{md,docx,pdf}. Glob limpo para o Cowork watcher diferenciar destinos.",
+      "rationale": "Padrao [tipo]_[projeto]_<timestamp> reduz risco de falso positivo no Cowork watcher (que vigia ~/Downloads). Backup vai para data/snapshots/, patch para data/patches/, reports nao sincronizam (uso local). Nome do arquivo eh parte do contrato, nao apenas convencao estetica.",
+      "consequences": "Skill pactor-patch enforca o padrao. PMO HTML v1.0.2 exporta com novos nomes. Cowork watcher (Turno 4) usara Get-ChildItem com filtros literais.",
+      "status": "aceita",
+      "linked_tasks": [
+        "TASK-PMO-02"
+      ]
+    }
+  ],
+  "documents": [
+    {
+      "id": "DOC-001",
+      "name": "01-processos-genericos-gestao-contratos",
+      "type": "md",
+      "current_version": "v1.4 (disperso em 3 arquivos)",
+      "status": "disperso",
+      "latest_file": "01-processos-genericos-gestao-contratos-v1_4_2026-04-29_15h00.md",
+      "location": "docs/processos/",
+      "notes": "Pendente consolidacao (handoff em handoff-consolidacao-doc01_2026-04-29_15h30.md). Proxima acao prioritaria do projeto."
+    },
+    {
+      "id": "DOC-002",
+      "name": "Pactor Workbench — Extracao & Revisao",
+      "type": "html",
+      "current_version": "v1.4.2.2",
+      "status": "ativo",
+      "latest_file": "pactor-extracao-revisao_2026-04-28_v1_4_2_1.html",
+      "location": "tools/workbench/",
+      "notes": "Hotfix do predicado CCT mergeado em PR #5 (commit 0526735). 13 blocos · 6 processos MVP · modelo de confianca com rebaixamento."
+    },
+    {
+      "id": "DOC-003",
+      "name": "Identidade Pactor",
+      "type": "asset",
+      "current_version": "v1.1",
+      "status": "lockada",
+      "latest_file": "pactor-identity-v1.1",
+      "location": "docs/brand/",
+      "notes": "Fraunces wordmark + 'P.' monogram + paleta Paper/Ink/Charcoal/Blue/Coral/Graphite. Coral so como ponto. Blue so em interativos."
+    },
+    {
+      "id": "DOC-004",
+      "name": "Site institucional pactor.app",
+      "type": "html",
+      "current_version": "v1.0 (live)",
+      "status": "ativo",
+      "latest_file": "index.html · produto.html · precos.html · contato.html",
+      "location": "pactor-app/pactor-site (repo separado)",
+      "notes": "4 paginas estaticas. Formspree endpoint xgorzqkq. Mobile hamburger implementado."
+    },
+    {
+      "id": "DOC-005",
+      "name": "ANM Framework — Guia de Preenchimento",
+      "type": "md",
+      "current_version": "v1.0",
+      "status": "ativo",
+      "latest_file": "ANM_Framework_Guia_Preenchimento_Claude.md",
+      "location": "docs/frameworks/",
+      "notes": "Guia para conduzir conversacoes estruturadas em cada area."
+    },
+    {
+      "id": "DOC-006",
+      "name": "Pactor Contexto Consolidado",
+      "type": "md",
+      "current_version": "2026-04-17",
+      "status": "ativo",
+      "latest_file": "pactor-contexto-consolidado_2026-04-17_22h30.md",
+      "location": "docs/contexto/",
+      "notes": "Snapshot de contexto para retomada de sessoes."
+    },
+    {
+      "id": "DOC-007",
+      "name": "Pactor Agentes — Referencia",
+      "type": "html",
+      "current_version": "2026-04-18",
+      "status": "ativo",
+      "latest_file": "pactor-agentes-referencia_2026-04-18_09h43.html",
+      "location": "docs/agentes/",
+      "notes": "Referencia interativa dos 8 agentes Claude Code."
+    },
+    {
+      "id": "DOC-008",
+      "name": "Vision Document",
+      "type": "docx",
+      "current_version": "—",
+      "status": "pendente",
+      "latest_file": "—",
+      "location": "docs/engenharia/",
+      "notes": "Aguardando confirmacao do fluxo seguro-garantia."
+    },
+    {
+      "id": "DOC-009",
+      "name": "Requirements Document",
+      "type": "docx",
+      "current_version": "—",
+      "status": "pendente",
+      "latest_file": "—",
+      "location": "docs/engenharia/",
+      "notes": "Pendente."
+    },
+    {
+      "id": "DOC-010",
+      "name": "Use Cases Document",
+      "type": "docx",
+      "current_version": "—",
+      "status": "pendente",
+      "latest_file": "—",
+      "location": "docs/engenharia/",
+      "notes": "Pendente."
+    },
+    {
+      "id": "DOC-011",
+      "name": "Guia Repactuacao Contratos Publicos GDF",
+      "type": "md",
+      "current_version": "2026-04-26",
+      "status": "ativo",
+      "latest_file": "guia-repactuacao-contratos-publicos-gdf_2026-04-26_15h20.md",
+      "location": "docs/processos/",
+      "notes": "Procedimento detalhado conforme IN 05/2017 + Lei 14.133."
+    },
+    {
+      "id": "DOC-012",
+      "name": "Knowledge — APIs Contratos Publicos",
+      "type": "md",
+      "current_version": "v1.0",
+      "status": "ativo",
+      "latest_file": "PACTOR-knowledge-apis-contratos-publicos.md",
+      "location": "docs/knowledge/",
+      "notes": "Inventario de PNCP, SICAF, FGTS, CADIN, demais APIs."
+    },
+    {
+      "id": "DOC-013",
+      "name": "Skill pactor-patch",
+      "type": "skill",
+      "current_version": "v1.0",
+      "status": "ativo",
+      "latest_file": "pactor-patch_skill_2026-04-29_20h15.zip",
+      "location": "Claude Desktop / Claude.ai - Customize - Skills",
+      "notes": "Gera arquivos patch_pactor_pmo_*.json a partir de decisoes em chats do Project Pactor. Schema canonico v1.0 com 5 ops (upsert/add/update/remove/set) sobre 8 modulos. Bundle: SKILL.md + schema.json + example-patch.json. Instalada via ZIP upload."
+    }
+  ],
+  "infrastructure": {
+    "repos": [
+      {
+        "name": "pactor-app/pactor-app",
+        "url": "https://github.com/pactor-app/pactor-app",
+        "role": "App principal (Next.js 16 + workbench + docs)"
+      },
+      {
+        "name": "pactor-app/pactor-site",
+        "url": "https://github.com/pactor-app/pactor-site",
+        "role": "Landing page institucional (pactor.app)"
+      }
+    ],
+    "services": [
+      {
+        "name": "Supabase",
+        "provider": "Supabase Inc.",
+        "env": "sa-east-1 (Sao Paulo)",
+        "url": "https://supabase.com/dashboard/project/qraxtmhqhlokfgstixoy",
+        "notes": "Project ID qraxtmhqhlokfgstixoy. Free tier. Postgres + Auth + Storage + Realtime + Edge Functions."
+      },
+      {
+        "name": "Vercel",
+        "provider": "Vercel Inc.",
+        "env": "Hobby (free)",
+        "url": "https://vercel.com/pactor-app",
+        "notes": "pactor-site deployado em pactor.app."
+      },
+      {
+        "name": "Anthropic Claude API",
+        "provider": "Anthropic",
+        "env": "production",
+        "url": "https://console.anthropic.com/",
+        "notes": "Para extracao de PDFs em producao."
+      },
+      {
+        "name": "Resend",
+        "provider": "Resend Inc.",
+        "env": "production",
+        "url": "https://resend.com/",
+        "notes": "E-mails transacionais."
+      },
+      {
+        "name": "Formspree",
+        "provider": "Formspree",
+        "env": "free tier",
+        "url": "https://formspree.io/",
+        "notes": "Endpoint xgorzqkq para captura de leads em contato.html."
+      },
+      {
+        "name": "Porkbun",
+        "provider": "Porkbun LLC",
+        "env": "production",
+        "url": "https://porkbun.com/",
+        "notes": "Registrar e DNS dos 3 dominios."
+      },
+      {
+        "name": "Google Workspace",
+        "provider": "Google",
+        "env": "production",
+        "url": "https://admin.google.com/",
+        "notes": "E-mail @pactor.app configurado."
+      },
+      {
+        "name": "GitHub",
+        "provider": "GitHub Inc.",
+        "env": "production",
+        "url": "https://github.com/pactor-app",
+        "notes": "Org pactor-app. HTTPS auth via gh CLI."
+      }
+    ],
+    "domains": [
+      {
+        "domain": "pactor.app",
+        "registrar": "Porkbun",
+        "dns": "Porkbun",
+        "status": "ativo · principal · live em Vercel"
+      },
+      {
+        "domain": "pactor.tech",
+        "registrar": "Porkbun",
+        "dns": "Porkbun",
+        "status": "reserva"
+      },
+      {
+        "domain": "pactor.pro",
+        "registrar": "Porkbun",
+        "dns": "Porkbun",
+        "status": "reserva"
+      }
+    ],
+    "agents": [
+      {
+        "name": "tech-lead",
+        "model": "Opus",
+        "role": "Arquitetura, decisoes tecnicas, plano de execucao",
+        "file": ".claude/agents/tech-lead.md"
+      },
+      {
+        "name": "db-architect",
+        "model": "Opus",
+        "role": "Schema do banco, migrations, RLS, indexacao",
+        "file": ".claude/agents/db-architect.md"
+      },
+      {
+        "name": "qa-engineer",
+        "model": "Sonnet",
+        "role": "Testes unitarios, integracao, regressao",
+        "file": ".claude/agents/qa-engineer.md"
+      },
+      {
+        "name": "refactor-sentinel",
+        "model": "Sonnet",
+        "role": "Read-only · detecta codigo morto, duplicacao, over-engineering",
+        "file": ".claude/agents/refactor-sentinel.md"
+      },
+      {
+        "name": "security-reviewer",
+        "model": "Sonnet",
+        "role": "Analise de seguranca · secrets, injection, auth flows",
+        "file": ".claude/agents/security-reviewer.md"
+      },
+      {
+        "name": "docs-writer",
+        "model": "Sonnet",
+        "role": "Documentacao tecnica, ADRs, READMEs",
+        "file": ".claude/agents/docs-writer.md"
+      },
+      {
+        "name": "release-manager",
+        "model": "Haiku",
+        "role": "Git: commits, branches, PRs, tags. Conventional Commits sem acentos.",
+        "file": ".claude/agents/release-manager.md"
+      },
+      {
+        "name": "(8º agente)",
+        "model": "Opus",
+        "role": "A confirmar — possivelmente product-strategist ou ux-reviewer",
+        "file": ".claude/agents/?"
+      }
+    ]
+  },
+  "areas": [
+    {
+      "area": "Juridico-societario",
+      "priority": "high",
+      "status": "em-andamento",
+      "topicos": [
+        "Anuencia formal da DELTAPOINT (TASK-002) — bloqueante para faturar",
+        "MEI vs LTDA — decidir e abrir CNPJ (TASK-003)",
+        "Conta bancaria PJ separada (TASK-004)",
+        "Marca no INPI — classes 9, 42, 45 (TASK-005)",
+        "Politica de privacidade + Termos de Uso · LGPD (TASK-006)",
+        "Contratos com fornecedores (Anthropic, Supabase, Resend) — DPA (TASK-007)",
+        "Registro de software no INPI · apos v1 estavel (TASK-008)",
+        "Seguro de RC profissional · apos primeiros clientes (TASK-009)"
+      ]
+    },
+    {
+      "area": "Go-to-market",
+      "priority": "high",
+      "status": "pendente",
+      "topicos": [
+        "ICP final · empresas contratadas pelo poder publico com 10+ contratos ativos",
+        "Recrutar 3-5 empresas para beta (rede pessoal + LinkedIn outbound)",
+        "Conteudo no LinkedIn · gestao de contratos publicos + IA",
+        "Parcerias com escritorios de advocacia administrativista",
+        "Eventos · ENAP, Zenite, Fenalaw (Ano 2)",
+        "Dispensa de licitacao para orgaos · ate R$ 59.906,02 (servicos, 2024)"
+      ]
+    },
+    {
+      "area": "Vendas",
+      "priority": "medium",
+      "status": "pendente",
+      "topicos": [
+        "Pricing definitivo · 3 planos (Starter / Pro / Enterprise)",
+        "Onboarding assistido nos primeiros clientes (white-glove)",
+        "CRM leve · Notion ou Pipefy nos primeiros 3 meses",
+        "Funil padrao · MQL → SQL → demo → trial → paid",
+        "Demo padronizada com case real (DELTAPOINT × TCM-SP)",
+        "Contratos comerciais · MSA + DPA + SLA"
+      ]
+    },
+    {
+      "area": "Suporte",
+      "priority": "medium",
+      "status": "pendente",
+      "topicos": [
+        "Canais · e-mail @pactor.app + chat no app",
+        "SLA de resposta · 8h uteis no plano Pro · 4h uteis no Enterprise",
+        "Base de conhecimento · docs.pactor.app (futuro)",
+        "Status page · status.pactor.app (futuro)",
+        "Politica de incidentes · pos-mortem publico em casos criticos"
+      ]
+    },
+    {
+      "area": "Financeiro",
+      "priority": "medium",
+      "status": "pendente",
+      "topicos": [
+        "Conta PJ separada · Inter ou Nubank PJ",
+        "Contador · MEI auto-DAS, LTDA exige contador",
+        "Fluxo de caixa · planilha simples nos primeiros 6 meses",
+        "Burn rate target · ~R$ 800/mes (Anthropic + Supabase + outros)",
+        "Receita target ano 1 · 10 clientes pagantes a R$ 500-1500/mes",
+        "Reserva · 6 meses de runway antes de virar full-time"
+      ]
+    },
+    {
+      "area": "Marca e identidade",
+      "priority": "low",
+      "status": "em-andamento",
+      "topicos": [
+        "Identidade Pactor v1.1 lockada — Fraunces + Paper/Ink/Blue/Coral",
+        "Brand book versionado em docs/brand/",
+        "Site institucional live em pactor.app",
+        "Materiais de venda · one-pager + deck + case study",
+        "Tom de voz · profissional, proximo, tecnico quando necessario"
+      ]
+    },
+    {
+      "area": "Produto e UX",
+      "priority": "high",
+      "status": "em-andamento",
+      "topicos": [
+        "UX research · 5 entrevistas com gestores de contratos antes de codar",
+        "Wireframes antes de implementar (Claude Design)",
+        "Analytics in-app · PostHog free ou Plausible",
+        "Testes com usuarios a cada release",
+        "NPS e CSAT nos primeiros 90 dias",
+        "Tela de revisao com ancoragem campo→PDF (TASK-024) — diferencial"
+      ]
+    },
+    {
+      "area": "Compliance regulatorio",
+      "priority": "medium",
+      "status": "pendente",
+      "topicos": [
+        "LGPD · DPO indicado, RIPD documentado, politica de privacidade",
+        "SICAF · integracao futura para monitoramento",
+        "FGTS · verificacao de regularidade automatizada",
+        "CADIN · consulta de devedores federais",
+        "Certidoes negativas · federal, estadual, municipal, trabalhista",
+        "ISO 27001 · futuro, quando ganhar cliente que exigir"
+      ]
+    }
+  ],
+  "risks": [
+    {
+      "id": "RISK-001",
+      "title": "FASE-0 juridica com status incerto — bloqueante para faturar",
+      "severity": "high",
+      "area": "Juridico",
+      "status": "aberto",
+      "mitigation": "Confirmar TASK-001 a TASK-009 esta semana. Sem anuencia DELTAPOINT + CNPJ aberto, projeto fica em terreno inseguro.",
+      "owner": "Rogerio"
+    },
+    {
+      "id": "RISK-002",
+      "title": "Doc 01 disperso em 3 arquivos (v1.2+v1.3+v1.4)",
+      "severity": "high",
+      "area": "Documentacao",
+      "status": "em-mitigacao",
+      "mitigation": "Handoff de consolidacao pronto. Saida prevista 2026-05-02.",
+      "owner": "Rogerio"
+    },
+    {
+      "id": "RISK-003",
+      "title": "Founder solo · bus factor",
+      "severity": "medium",
+      "area": "Estrategico",
+      "status": "aceito",
+      "mitigation": "Documentar tudo em /docs. Backup continuo. Compartilhar conhecimento de dominio com Kamila Souto. Considerar advisor tecnico no Ano 1.",
+      "owner": "Rogerio"
+    },
+    {
+      "id": "RISK-004",
+      "title": "DELTAPOINT como beta unico · concentracao",
+      "severity": "medium",
+      "area": "GTM",
+      "status": "aberto",
+      "mitigation": "Recrutar 3-5 empresas adicionais ate final 2026-Q3. Diversificar tamanho.",
+      "owner": "Rogerio"
+    },
+    {
+      "id": "RISK-005",
+      "title": "Dependencia unica da Claude API",
+      "severity": "medium",
+      "area": "Tecnico",
+      "status": "aceito",
+      "mitigation": "Avaliar fallback (OpenAI ou Gemini) no v2. Modelar abstracao de provider.",
+      "owner": "Rogerio"
+    },
+    {
+      "id": "RISK-006",
+      "title": "Encoding PowerShell CP1252 em commits",
+      "severity": "low",
+      "area": "Tecnico",
+      "status": "mitigado",
+      "mitigation": "Convencao de commits sem acentos. Uso de gh pr create --body-file. Documentado em CLAUDE.md.",
+      "owner": "release-manager"
+    },
+    {
+      "id": "RISK-007",
+      "title": "Schema do patch ainda em fechamento",
+      "severity": "low",
+      "area": "PMO",
+      "status": "em-mitigacao",
+      "mitigation": "Schema canonico fixado no Turno 3 (skill pactor-patch). Versionado como SCHEMA_VERSION 1.0.",
+      "owner": "Rogerio"
+    }
+  ],
+  "patches_log": [
+    {
+      "patch_id": "patch_2026-04-29_18h55",
+      "imported_at": "2026-04-29T16:34:15.376Z",
+      "source": {
+        "type": "chat",
+        "chat_title": "Live Artifact PMO Pactor — fix Documentos vazio",
+        "chat_url": null
+      },
+      "ops_count": 28
+    },
+    {
+      "patch_id": "patch_2026-04-29_20h25",
+      "imported_at": "2026-04-30T15:19:33.777Z",
+      "source": {
+        "type": "chat",
+        "chat_title": "Live Artifact PMO Pactor — Turnos 1 a 3 + skill instalada",
+        "chat_url": null
+      },
+      "ops_count": 3
+    }
+  ]
+}
