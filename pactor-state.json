@@ -3,67 +3,23 @@
   "meta": {
     "name": "Pactor — Snapshot 2026-04-29",
     "created_at": "2026-04-29T18:15:00-03:00",
-    "updated_at": "2026-04-30T18:53:25.961Z",
+    "updated_at": "2026-04-30T22:34:06.062Z",
     "consolidated_from": {
       "base_snapshot": "backup_pactor_pmo_2026-04-30_14h52.json",
-      "patches_applied": 4,
-      "total_ops_applied": 3,
-      "consolidated_at": "2026-04-30T18:53:25.961Z"
+      "patches_applied": 6,
+      "total_ops_applied": 7,
+      "consolidated_at": "2026-04-30T22:34:06.062Z"
     }
   },
   "cockpit": {
-    "last_updated": "2026-04-29T18:15:00-03:00",
-    "week_focus": "Consolidar Doc 01 (v1.2+v1.3+v1.4) e iniciar TASK-024 (tela de revisão com ancoragem campo→PDF).",
+    "last_updated": "2026-04-30T22:22:00-03:00",
+    "week_focus": "Fase 1 / Epico B — Banco multi-tenant + seguranca. TASK-017 fechada, foco em TASK-018 (RLS restritivo) e TASK-019 (Supabase Auth).",
     "top_actions": [
-      {
-        "id": "A1",
-        "title": "Consolidar Documento 01 em arquivo único",
-        "priority": "high",
-        "due": "2026-05-02",
-        "linked_task": "TASK-NEW-01"
-      },
-      {
-        "id": "A2",
-        "title": "Confirmar status FASE-0 (jurídico-societário) — TASK-001 a TASK-009",
-        "priority": "high",
-        "due": "2026-05-03",
-        "linked_task": "TASK-001"
-      },
-      {
-        "id": "A3",
-        "title": "Iniciar TASK-024 (tela de revisão + ancoragem campo→PDF)",
-        "priority": "medium",
-        "due": "2026-05-10",
-        "linked_task": "TASK-024"
-      },
-      {
-        "id": "A4",
-        "title": "Instalar skill pactor-patch (após Turno 3)",
-        "priority": "medium",
-        "due": "2026-04-30",
-        "linked_task": "TASK-PMO-02"
-      }
+      "TASK-018 — Substituir policies RLS permissivas por restritivas multi-tenant baseadas em memberships e auth.uid()",
+      "TASK-019 — Implementar Supabase Auth (cadastro, login, reset)",
+      "TASK-022 — Bucket privado contracts no Supabase Storage"
     ],
-    "active_blockers": [
-      {
-        "id": "B1",
-        "title": "Doc 01 disperso em 3 arquivos (v1.2+v1.3+v1.4)",
-        "severity": "high",
-        "area": "Documentação"
-      },
-      {
-        "id": "B2",
-        "title": "FASE-0 jurídica com status incerto — bloqueante para faturar",
-        "severity": "high",
-        "area": "Jurídico"
-      },
-      {
-        "id": "B3",
-        "title": "Schema do patch ainda em fechamento (Turno 3)",
-        "severity": "low",
-        "area": "PMO"
-      }
-    ]
+    "active_blockers": []
   },
   "phases": [
     {
@@ -432,7 +388,7 @@
       "descricao": "organizations, users, organization_users, contracts, insurance_policies, adjustments, alerts, audit_logs.",
       "fase": "FASE-1",
       "prioridade": "high",
-      "status": "todo",
+      "status": "done",
       "checklist": [
         {
           "text": "Diagrama ER",
@@ -447,7 +403,7 @@
           "done": false
         }
       ],
-      "notas": "Próxima task técnica após Doc 01 consolidado",
+      "notas": "Concluida em 2026-04-30 via MCP do Supabase. Migration 0001_initial_schema_pactor_mvp_2026-04-30_21h49.sql aplicada e versionada em pactor-app/supabase/migrations/ (commit ece0ae4). 13 tabelas, 8 enums, 37 indices, GIN em extracted_data, RLS ativo com policies permissivas. Seed: 1 client DELTAPOINT + 1 company DELTAPOINT TECNOLOGIA LTDA.",
       "updated_at": "2026-04-29"
     },
     {
@@ -977,6 +933,19 @@
       "linked_tasks": [
         "TASK-PMO-02"
       ]
+    },
+    {
+      "id": "ADR-014",
+      "title": "Design do schema inicial do banco Pactor MVP",
+      "date": "2026-04-30",
+      "summary": "Schema v0.1.0 do Supabase consolida quatro decisoes: escopo amplo (esqueleto + 6 processos), JSONB unico com indice GIN para os 13 blocos extraidos, nomenclatura clients/companies/contracts e regiao us-east-1.",
+      "rationale": "Escopo amplo evita retrofit na Fase 2 sem custo significativo agora. JSONB+GIN preserva flexibilidade do SCHEMAS do workbench e permite queries nos blocos sem normalizar prematuramente. Nomenclatura clients/companies espelha a hierarquia Cliente-CNPJ-Contrato do Doc 01 v1.4. Regiao us-east-1 mantida (estado real do projeto qraxtmhqhlokfgstixoy) — diferente do sa-east-1 originalmente planejado; latencia maior aceitavel no MVP, migracao avaliada antes de dados reais de producao.",
+      "consequences": "13 tabelas operacionais + audit_logs. Toda tabela ja nasce com client_id e company_id para preparar RLS multi-tenant restritivo (TASK-018). Policies permissivas temporarias enquanto Auth nao existe.",
+      "status": "aceita",
+      "linked_tasks": [
+        "TASK-017",
+        "TASK-018"
+      ]
     }
   ],
   "documents": [
@@ -1109,6 +1078,16 @@
       "latest_file": "pactor-patch_skill_2026-04-29_20h15.zip",
       "location": "Claude Desktop / Claude.ai - Customize - Skills",
       "notes": "Gera arquivos patch_pactor_pmo_*.json a partir de decisoes em chats do Project Pactor. Schema canonico v1.0 com 5 ops (upsert/add/update/remove/set) sobre 8 modulos. Bundle: SKILL.md + schema.json + example-patch.json. Instalada via ZIP upload."
+    },
+    {
+      "id": "DOC-014",
+      "name": "Migration inicial Pactor MVP v0.1.0",
+      "type": "sql_migration",
+      "current_version": "v0.1.0",
+      "status": "vigente",
+      "latest_file": "0001_initial_schema_pactor_mvp_2026-04-30_21h49.sql",
+      "location": "pactor-app/pactor-app/supabase/migrations/",
+      "notes": "Schema inicial do banco Supabase. Aplicada via MCP em 2026-04-30 21h49. Commit ece0ae4 em origin/main."
     }
   ],
   "infrastructure": {
@@ -1436,13 +1415,23 @@
     },
     {
       "patch_id": "patch_2026-04-29_20h25",
-      "imported_at": "2026-04-30T18:53:25.961Z",
+      "imported_at": "2026-04-30T22:34:06.061Z",
       "source": {
         "type": "chat",
         "chat_title": "Live Artifact PMO Pactor — Turnos 1 a 3 + skill instalada",
         "chat_url": null
       },
       "ops_count": 3
+    },
+    {
+      "patch_id": "patch_2026-04-30_22h22",
+      "imported_at": "2026-04-30T22:34:06.062Z",
+      "source": {
+        "type": "chat",
+        "chat_title": "TASK-017 — Schema inicial do banco Supabase",
+        "chat_url": null
+      },
+      "ops_count": 4
     }
   ]
 }
