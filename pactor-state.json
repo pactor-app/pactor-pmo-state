@@ -3,12 +3,12 @@
   "meta": {
     "name": "Pactor — Snapshot 2026-04-29",
     "created_at": "2026-04-29T18:15:00-03:00",
-    "updated_at": "2026-05-01T00:55:58.128Z",
+    "updated_at": "2026-05-01T18:17:32.835Z",
     "consolidated_from": {
-      "base_snapshot": "backup_pactor_pmo_2026-04-30_21h37.json",
+      "base_snapshot": "backup_pactor_pmo_2026-05-01_15h15.json",
       "patches_applied": 4,
-      "total_ops_applied": 8,
-      "consolidated_at": "2026-05-01T00:55:58.128Z"
+      "total_ops_applied": 3,
+      "consolidated_at": "2026-05-01T18:17:32.835Z"
     }
   },
   "cockpit": {
@@ -1454,24 +1454,24 @@
       "ops_count": 4
     },
     {
-      "patch_id": "patch_2026-04-29_20h25",
-      "imported_at": "2026-05-01T00:55:58.127Z",
-      "source": {
-        "type": "chat",
-        "chat_title": "Live Artifact PMO Pactor — Turnos 1 a 3 + skill instalada",
-        "chat_url": null
-      },
-      "ops_count": 3
-    },
-    {
       "patch_id": "patch_2026-04-30_23h50",
-      "imported_at": "2026-05-01T00:55:58.128Z",
+      "imported_at": "2026-05-01T15:16:53.580Z",
       "source": {
         "type": "chat",
         "chat_title": "TASK-018 — RLS policies multi-tenant + hotfix advisors",
         "chat_url": null
       },
       "ops_count": 5
+    },
+    {
+      "patch_id": "patch_2026-04-29_20h25",
+      "imported_at": "2026-05-01T18:17:32.834Z",
+      "source": {
+        "type": "chat",
+        "chat_title": "Live Artifact PMO Pactor — Turnos 1 a 3 + skill instalada",
+        "chat_url": null
+      },
+      "ops_count": 3
     }
   ]
 }
