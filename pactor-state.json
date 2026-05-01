@@ -3,12 +3,12 @@
   "meta": {
     "name": "Pactor — Snapshot 2026-04-29",
     "created_at": "2026-04-29T18:15:00-03:00",
-    "updated_at": "2026-05-01T00:51:58.758Z",
+    "updated_at": "2026-05-01T00:55:58.128Z",
     "consolidated_from": {
       "base_snapshot": "backup_pactor_pmo_2026-04-30_21h37.json",
-      "patches_applied": 3,
-      "total_ops_applied": 3,
-      "consolidated_at": "2026-05-01T00:51:58.758Z"
+      "patches_applied": 4,
+      "total_ops_applied": 8,
+      "consolidated_at": "2026-05-01T00:55:58.128Z"
     }
   },
   "cockpit": {
@@ -413,7 +413,7 @@
       "fase": "FASE-1",
       "prioridade": "high",
       "status": "done",
-      "notas": "ADR-003 — multi-tenant nativo",
+      "notas": "Concluida em 2026-04-30. Migration 0002_rls_policies_multitenant_2026-04-30_23h15.sql aplicada via MCP (commit 200b873). Hotfix 0003_rls_helpers_revoke_anon_2026-04-30_23h45.sql aplicado para fechar 2 warnings de anon (commit 96f12b1). Teste de isolamento reproduzivel em supabase/tests/. Decisao registrada em ADR-RLS-MULTITENANT. 2 warnings de authenticated permanecem como by-design — endereco em TASK-018b.",
       "updated_at": "2026-05-01",
       "checklist": [
         {
@@ -447,7 +447,7 @@
           "done": false
         }
       ],
-      "notas": "",
+      "notas": "Proxima na fila apos TASK-018. Decidido executar via Claude Code pelo volume de arquivos (signup, login, reset, middleware) e ciclos de build/test. Workflow: handoff detalhado escrito neste chat web, execucao agentica no Claude Code.",
       "updated_at": "2026-04-29"
     },
     {
@@ -515,7 +515,7 @@
           "done": false
         }
       ],
-      "notas": "",
+      "notas": "Promovida para apos TASK-019.",
       "updated_at": "2026-04-29"
     },
     {
@@ -785,6 +785,22 @@
           "done": false
         }
       ]
+    },
+    {
+      "id": "TASK-018b",
+      "titulo": "Mover helpers RLS para schema private (fecha 2 warnings de authenticated)",
+      "descricao": "Refactor: criar schema private nao exposto pelo PostgREST, recriar user_client_ids e user_role_in_client em private, recriar as 47 policies apontando para os novos nomes, drop das funcoes em public. Fecha os 2 warnings authenticated_security_definer_function_executable remanescentes da TASK-018. Migration grande (~200 linhas) e arriscada — exige novo teste de isolamento bilateral.",
+      "fase": "FASE-1",
+      "prioridade": "low",
+      "status": "todo",
+      "checklist": [
+        "Criar schema private + grant usage authenticated",
+        "Recriar funcoes em private",
+        "Drop e recriar 47 policies apontando para private.user_*",
+        "Drop funcoes antigas em public",
+        "Re-rodar teste de isolamento (5 cenarios)",
+        "Verificar advisors zerados"
+      ]
     }
   ],
   "decisions": [
@@ -945,6 +961,20 @@
       "linked_tasks": [
         "TASK-017",
         "TASK-018"
+      ]
+    },
+    {
+      "id": "ADR-RLS-MULTITENANT",
+      "title": "RLS multi-tenant: 2 helpers em schema public + 47 policies restritivas baseadas em memberships",
+      "date": "2026-04-30",
+      "summary": "Adotamos isolamento por client_id usando duas funcoes helper SECURITY DEFINER em schema public (user_client_ids e user_role_in_client) com 47 policies restritivas distribuidas em 13 tabelas. Modelo segue Doc 01 v1.4 Parte I item 2.",
+      "rationale": "Helpers SECURITY DEFINER evitam recursao na policy de memberships (que precisa ler memberships para resolver isolamento). Schema escolhido foi public porque Supabase Cloud bloqueia DDL no schema auth. Padrao de 4 policies por tabela operacional (SELECT/INSERT/UPDATE/DELETE) com matriz de capacidades por role (admin, executive, manager, analyst, auditor). DELETE restrito a admin+manager; INSERT/UPDATE liberado tambem para analyst; SELECT amplo. Audit_logs read-only para admin+auditor. Clients tem INSERT/DELETE bloqueados ate para admin (onboarding/offboarding via service role).",
+      "consequences": "Pros: isolamento provado em 5 testes bilaterais; helpers reutilizaveis; padrao replicavel para tabelas futuras. Contras: 2 warnings de advisor permanecem (authenticated_security_definer_function_executable em user_client_ids e user_role_in_client) por design — fechados em refactor futuro (TASK-018b) movendo helpers para schema private nao exposto pelo PostgREST. Hotfix 0003 ja fechou os 2 warnings analogos para anon.",
+      "status": "aceita",
+      "linked_tasks": [
+        "TASK-017",
+        "TASK-018",
+        "TASK-018b"
       ]
     }
   ],
@@ -1425,13 +1455,23 @@
     },
     {
       "patch_id": "patch_2026-04-29_20h25",
-      "imported_at": "2026-05-01T00:51:58.758Z",
+      "imported_at": "2026-05-01T00:55:58.127Z",
       "source": {
         "type": "chat",
         "chat_title": "Live Artifact PMO Pactor — Turnos 1 a 3 + skill instalada",
         "chat_url": null
       },
       "ops_count": 3
+    },
+    {
+      "patch_id": "patch_2026-04-30_23h50",
+      "imported_at": "2026-05-01T00:55:58.128Z",
+      "source": {
+        "type": "chat",
+        "chat_title": "TASK-018 — RLS policies multi-tenant + hotfix advisors",
+        "chat_url": null
+      },
+      "ops_count": 5
     }
   ]
 }
