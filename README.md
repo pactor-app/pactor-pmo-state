@@ -30,7 +30,7 @@ This file is auto-published by a GitHub Action in the private `pactor-app/pactor
 2. Commit to the private repo
 3. Cross-repo push to this public repo
 
-Last updated: 2026-05-01T00:43:53Z
+Last updated: 2026-05-01T00:52:00Z
 
 ## Manual contributions
 
