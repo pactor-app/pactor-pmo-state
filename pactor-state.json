@@ -3,12 +3,12 @@
   "meta": {
     "name": "Pactor — Snapshot 2026-04-29",
     "created_at": "2026-04-29T18:15:00-03:00",
-    "updated_at": "2026-05-01T18:17:32.835Z",
+    "updated_at": "2026-05-02T01:30:27.639Z",
     "consolidated_from": {
-      "base_snapshot": "backup_pactor_pmo_2026-05-01_15h15.json",
-      "patches_applied": 4,
+      "base_snapshot": "backup_pactor_pmo_2026-05-01_18h12.json",
+      "patches_applied": 5,
       "total_ops_applied": 3,
-      "consolidated_at": "2026-05-01T18:17:32.835Z"
+      "consolidated_at": "2026-05-02T01:30:27.639Z"
     }
   },
   "cockpit": {
@@ -801,6 +801,46 @@
         "Re-rodar teste de isolamento (5 cenarios)",
         "Verificar advisors zerados"
       ]
+    },
+    {
+      "id": "TASK-PMO-03",
+      "titulo": "Migracao do PMO para Supabase (Fases 1 a 5)",
+      "descricao": "Substitui pipeline GitHub (watcher + Action + repo publico) por Supabase dedicado. Fase 1 concluida hoje (schema + auth). Proximas fases: PMO v1.1 com suporte Supabase, skill pactor-patch falando SQL, Supabase como padrao, limpeza do GitHub.",
+      "fase": "FASE-1",
+      "prioridade": "high",
+      "status": "doing",
+      "checklist": [
+        {
+          "text": "Fase 1 — Schema pmo_state + RLS + user rogerio@pactor.app no Supabase Pactor.PMO",
+          "done": true
+        },
+        {
+          "text": "Fase 1 — Commit da migration SQL em supabase-pmo/migrations/ (pendente, aguardando Claude Code liberar repo)",
+          "done": false
+        },
+        {
+          "text": "Fase 1 — Desabilitar Sign Ups no Auth do Supabase (whitelist)",
+          "done": false
+        },
+        {
+          "text": "Fase 2 — PMO v1.1 com Supabase lado a lado com GitHub (primeira carga via 'Carregar do GitHub')",
+          "done": false
+        },
+        {
+          "text": "Fase 3 — Skill pactor-patch ganha modo SQL upsert",
+          "done": false
+        },
+        {
+          "text": "Fase 4 — Supabase vira padrao no PMO; GitHub vira fallback",
+          "done": false
+        },
+        {
+          "text": "Fase 5 — Arquivar repo publico pactor-pmo-state, deletar Action, desinstalar watcher",
+          "done": false
+        }
+      ],
+      "notas": "Projeto Supabase: Pactor.PMO (id elhmyniythzhtudbwtlq, sa-east-1, plano Nano). User: rogerio@pactor.app (id e5cc239f-7fd2-4f62-8b46-3b45b5cf6a23). Tabela: public.pmo_state (JSONB com data, schema_version, RLS por user_id). Decisoes em ADR-019.",
+      "updated_at": "2026-05-01"
     }
   ],
   "decisions": [
@@ -976,6 +1016,61 @@
         "TASK-018",
         "TASK-018b"
       ]
+    },
+    {
+      "id": "ADR-015",
+      "title": "Links clicaveis em documentos do PMO (drive_url + github_url)",
+      "date": "2026-05-01",
+      "summary": "Cards de documentos passam a exibir botoes Drive e GitHub clicaveis quando os campos drive_url e github_url estao preenchidos. Edicao inline via botao 'Editar links' no proprio card.",
+      "rationale": "Reduz friccao para abrir documentos diretamente do PMO. Dois campos fixos foram preferidos sobre array flexivel links[] pelo principio de comecar simples e evoluir se preciso. Edicao inline (vs modal) mantem o fluxo visual do card sem mudanca de contexto.",
+      "consequences": "PMO HTML v1.0.3 introduz a renderizacao dos botoes; v1.0.4 adiciona edicao inline com validacao leve (URL deve comecar com http). Schema do JSONB ganha 2 campos opcionais por documento.",
+      "status": "aceita",
+      "linked_tasks": []
+    },
+    {
+      "id": "ADR-016",
+      "title": "Cowork watcher manual sob demanda (sem Task Scheduler)",
+      "date": "2026-05-01",
+      "summary": "Task agendada PactorPMO-Watcher removida do Windows Task Scheduler. Watcher passa a rodar manualmente quando necessario via comando PowerShell direto.",
+      "rationale": "Schedule de 30 min era exagero para o ritmo real de trabalho (1-2 patches por dia). Execucao manual evita falsos positivos e push acidental, mantem controle do usuario sobre cada commit.",
+      "consequences": "Comando manual: powershell -ExecutionPolicy Bypass -File C:\\Users\\roger\\.pactor-watcher\\pactor-watcher.ps1. Recomenda-se criar alias 'pwatch' no $PROFILE. Documentado no menu Ajuda do PMO v1.0.3.",
+      "status": "aceita",
+      "linked_tasks": [
+        "TASK-PMO-02"
+      ]
+    },
+    {
+      "id": "ADR-017",
+      "title": "URL do state.json no PMO corrigida para repo publico pactor-pmo-state",
+      "date": "2026-05-01",
+      "summary": "Hardcoded do PMO apontava para data/pactor-state.json no repo privado pactor-app/pactor-app (404). Corrigido para https://raw.githubusercontent.com/pactor-app/pactor-pmo-state/main/pactor-state.json (raiz do repo publico dedicado).",
+      "rationale": "GitHub raw nao autentica via cookie e o JSON publicado fica na raiz do repo publico, nao em data/. Botao 'Restaurar padrao' adicionado ao Sync/Digest para limpar override no localStorage de instalacoes anteriores.",
+      "consequences": "PMO HTML v1.0.5 corrige o hardcoded em getDigestUrl() e adiciona resetDigestUrl(). Texto explicativo do card 'Como funciona' atualizado.",
+      "status": "aceita",
+      "linked_tasks": []
+    },
+    {
+      "id": "ADR-018",
+      "title": "Sync from repo passa a sobrescrever todos os 8 modulos",
+      "date": "2026-05-01",
+      "summary": "syncFromRepo() ampliado para cobrir tasks, phases, decisions, documents, infrastructure, areas, risks e cockpit (antes cobria apenas 4). Confirm() bloqueia substituicao quando ha trabalho local + remoto.",
+      "rationale": "Comportamento original mantinha apenas 4 modulos sob protecao 'preserve edits locais', mas em primeiro sync com banco vazio quebrava UX (tasks/kanban/fases/riscos ficavam zerados). Heuristica agora detecta conflito real e pede confirmacao.",
+      "consequences": "PMO HTML v1.0.6 reescreve syncFromRepo. Aviso visivel adicionado ao card do Sync/Digest. Toast de sucesso passa a mostrar contagens (ex: '37 tasks, 15 ADRs, 14 docs').",
+      "status": "aceita",
+      "linked_tasks": []
+    },
+    {
+      "id": "ADR-019",
+      "title": "Arquitetura PMO migra de GitHub para Supabase dedicado (projeto Pactor.PMO)",
+      "date": "2026-05-01",
+      "summary": "Sync via cadeia GitHub privado + Action + repo publico + watcher PowerShell sera substituido por Supabase dedicado. Projeto Pactor.PMO criado em sa-east-1 (id elhmyniythzhtudbwtlq), separado do projeto operacional Pactor (us-east-1, id qraxtmhqhlokfgstixoy). Modelagem JSONB (1 tabela pmo_state), auth Email+senha simples para o user rogerio@pactor.app.",
+      "rationale": "Cadeia atual tem 6 elos (PMO, watcher, repo privado, Action, repo publico, sync) so para mover JSON de uma pessoa. Supabase reduz para 2 elos (PMO + Supabase), traz auth real (RLS por user), elimina problema do file:// quebrar IndexedDB ao trocar nome do arquivo, e habilita multi-device em tempo real. Projeto separado isola blast radius e evita misturar tabelas operacionais (clients, contracts) com tabelas meta (PMO).",
+      "consequences": "Roadmap em 5 fases: (1) schema + auth no Supabase [CONCLUIDA hoje]; (2) PMO v1.1 com suporte Supabase lado a lado com GitHub; (3) skill pactor-patch passa a aceitar SQL upsert; (4) Supabase vira padrao; (5) limpa repo publico, Action, watcher. JSONB escolhido sobre relacional pelo principio de comecar simples e migrar se precisar (escopo solo founder, schema em descoberta).",
+      "status": "aceita",
+      "linked_tasks": [
+        "TASK-PMO-02",
+        "TASK-PMO-03"
+      ]
     }
   ],
   "documents": [
@@ -1118,6 +1213,16 @@
       "latest_file": "0001_initial_schema_pactor_mvp_2026-04-30_21h49.sql",
       "location": "pactor-app/pactor-app/supabase/migrations/",
       "notes": "Schema inicial do banco Supabase. Aplicada via MCP em 2026-04-30 21h49. Commit ece0ae4 em origin/main."
+    },
+    {
+      "id": "DOC-015",
+      "name": "Migration inicial Supabase Pactor.PMO Project",
+      "type": "sql",
+      "current_version": "0001 (2026-05-01)",
+      "status": "ativo",
+      "latest_file": "0001_initial_schema_pmo_2026-05-01_17h45.sql",
+      "location": "supabase-pmo/migrations/ (no repo pactor-app/pactor-app, pendente commit)",
+      "notes": "Cria public.pmo_state (JSONB), 4 policies RLS, 3 indices, trigger updated_at. Aplicada via Supabase MCP em 2026-05-01 17h45 (UTC) no projeto elhmyniythzhtudbwtlq (sa-east-1). Timestamp Supabase: 20260501204534. Validada com testes de RLS positivo (insert do dono passa) e negativo (insert com user_id falso bloqueado). Arquivo SQL pendente de commit em supabase-pmo/migrations/."
     }
   ],
   "infrastructure": {
@@ -1464,8 +1569,18 @@
       "ops_count": 5
     },
     {
+      "patch_id": "patch_2026-05-01_15h20",
+      "imported_at": "2026-05-01T21:11:53.680Z",
+      "source": {
+        "type": "chat",
+        "chat_title": "PMO v1.0.3 a v1.0.6 + decisao de migrar PMO para Supabase dedicado (Fase 1 executada)",
+        "chat_url": null
+      },
+      "ops_count": 8
+    },
+    {
       "patch_id": "patch_2026-04-29_20h25",
-      "imported_at": "2026-05-01T18:17:32.834Z",
+      "imported_at": "2026-05-02T01:30:27.638Z",
       "source": {
         "type": "chat",
         "chat_title": "Live Artifact PMO Pactor — Turnos 1 a 3 + skill instalada",
