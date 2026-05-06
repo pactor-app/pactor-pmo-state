@@ -3,12 +3,12 @@
   "meta": {
     "name": "Pactor — Snapshot 2026-04-29",
     "created_at": "2026-04-29T18:15:00-03:00",
-    "updated_at": "2026-05-02T01:30:27.639Z",
+    "updated_at": "2026-05-06T01:37:03.276Z",
     "consolidated_from": {
       "base_snapshot": "backup_pactor_pmo_2026-05-01_18h12.json",
       "patches_applied": 5,
       "total_ops_applied": 3,
-      "consolidated_at": "2026-05-02T01:30:27.639Z"
+      "consolidated_at": "2026-05-06T01:37:03.276Z"
     }
   },
   "cockpit": {
@@ -1580,7 +1580,7 @@
     },
     {
       "patch_id": "patch_2026-04-29_20h25",
-      "imported_at": "2026-05-02T01:30:27.638Z",
+      "imported_at": "2026-05-06T01:37:03.275Z",
       "source": {
         "type": "chat",
         "chat_title": "Live Artifact PMO Pactor — Turnos 1 a 3 + skill instalada",
